@@ -9,7 +9,7 @@ if ~exist('sigma2','var') || isempty(sigma2) || (sigma2==0),
 end
 sigma2_init=sigma2;
 
-% Construct affinity matrix G
+% Construct gaussian affinity matrix G
 G=cpd_G(Y,Y,beta);
 
 % configuration of SC
@@ -38,6 +38,7 @@ iter=0; ntol=tol+10; L=1;
 while (iter<max_it) && (ntol > tol) && (sigma2 > 1e-8) %(sigma2 > 1e-8)
 %while (iter<max_it)  && (sigma2 > 1e-8) %(sigma2 > 1e-8)
     
+    % :::::::: It seems that the correspondence starts here but not sure
     if mod(iter, nsc)==0
 %     c2=mean(T);
 %     t2=atan2(T(:,2)-c2(2), T(:,1)-c2(1));
@@ -71,13 +72,15 @@ while (iter<max_it) && (ntol > tol) && (sigma2 > 1e-8) %(sigma2 > 1e-8)
     idx = sum(P_prior,2) < 1;
     P_prior(idx,:) = 1/M;
     end
-    
+
+    % :::::::: And it ends here
+
     L_old=L;
-    
+
     [P, P1, Pt1, PX, L]=compute_P(X,T, sigma2 ,outliers, P_prior); st='';
-    
+
     disp([' PR-GLS nonrigid ' st ' : dL= ' num2str(ntol) ', iter= ' num2str(iter) ' sigma2= ' num2str(sigma2)]);
-    
+
     L=L+lambda/2*trace(W'*G*W);
     ntol=abs((L-L_old)/L);
 
@@ -89,14 +92,14 @@ while (iter<max_it) && (ntol > tol) && (sigma2 > 1e-8) %(sigma2 > 1e-8)
 
     Np=sum(P1);sigma2save=sigma2;
     sigma2=abs((sum(sum(X.^2.*repmat(Pt1,1,D)))+sum(sum(T.^2.*repmat(P1,1,D))) -2*trace(PX'*T)) /(Np*D));
-    
+
     outliers = 1 - Np/N; %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     if outliers>0.99
         outliers = 0.99;
     elseif outliers<0.01
         outliers = 0.01;
     end
-    
+
 %     outliers = 0.01;
 
     % Plot the result on current iteration

@@ -6,17 +6,21 @@ clc;
 warning('off', 'all');
 
 if 1
+    % For adding path of folders to environment
     initialization;
 end
 
+% Loading the point sets and assigning them to X and Y (target)
 load save_fish_def_5_1.mat
 X = x1;
 Y = y2a;
 disp(X)
 disp(Y)
 
+% Algorithm configurations
 opt.outliers = 0.5;
 opt.viz = 1;
+% Has no default value: confidence of featurs correspondence
 opt.t = 0.9;
 opt.sparse = 0;
 opt.nsc = 5;
@@ -25,6 +29,7 @@ opt.nsc = 5;
 % opt.lambda = 3;
 % opt.tol = 1e-10;
 
+% Applying Point Set Registration
 [Transform, C]=prgls_register(Y, X, opt);
 V = Transform.Y;
 
