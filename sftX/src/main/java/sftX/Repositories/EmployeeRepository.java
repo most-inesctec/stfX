@@ -1,6 +1,7 @@
-package sftX;
+package sftX.Repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import sftX.Models.Employee.Employee;
 
 /**
  * JPA Repository is the interface responsible for:
@@ -9,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Deleting
  * Finding (one, all, by simple or complex properties)
  */
-interface EmployeeRepository extends JpaRepository<Employee, Long> {
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 }

@@ -1,4 +1,4 @@
-package sftX;
+package sftX.Models.Employee;
 
 import lombok.Data;
 
@@ -14,7 +14,7 @@ import javax.persistence.Id;
  * JPA annotation to make this object ready for storage in a JPA-based data store
  */
 @Entity
-class Employee {
+public class Employee {
 
     /**
      * Primary key automatically populated by the JPA provider.
@@ -25,7 +25,7 @@ class Employee {
 
     Employee() {}
 
-    Employee(String name, String role) {
+    public Employee(String name, String role) {
         this.name = name;
         this.role = role;
     }

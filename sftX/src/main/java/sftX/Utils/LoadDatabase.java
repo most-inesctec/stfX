@@ -1,10 +1,12 @@
-package sftX;
+package sftX.Utils;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import sftX.Models.Employee.Employee;
+import sftX.Repositories.EmployeeRepository;
 
 @Configuration
 /**

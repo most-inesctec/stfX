@@ -1,4 +1,4 @@
-package sftX;
+package sftX.Controllers.Employee;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import sftX.Models.Employee.EmployeeNotFoundException;
+import sftX.Repositories.EmployeeRepository;
+import sftX.Models.Employee.Employee;
+
 
 /**
  * Indicates that the data returned by each method will be written straight into the response body instead of rendering a template.
  */
 @RestController
-class EmployeeController {
+public class EmployeeController {
 
     private final EmployeeRepository repository;
 
@@ -33,7 +37,7 @@ class EmployeeController {
     // Aggregate root
 
     @GetMapping("/employees")
-    CollectionModel<EntityModel<Employee>> all() {
+    public CollectionModel<EntityModel<Employee>> all() {
         List<EntityModel<Employee>> employees = repository.findAll().stream()
             .map(assembler::toModel)
             .collect(Collectors.toList());
@@ -50,7 +54,7 @@ class EmployeeController {
     // Single item
 
     @GetMapping("/employees/{id}")
-    EntityModel<Employee> one(@PathVariable Long id) {
+    public EntityModel<Employee> one(@PathVariable Long id) {
         Employee employee = repository.findById(id)
             .orElseThrow(() -> new EmployeeNotFoundException(id));
 
