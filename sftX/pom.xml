@@ -52,6 +52,13 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>com.mathworks</groupId>
+			<artifactId>matlab-java-engine</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/libs/engine.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
