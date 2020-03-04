@@ -1,4 +1,4 @@
-
+function [Transform, C]=demo()
 clear;
 close;
 clc;

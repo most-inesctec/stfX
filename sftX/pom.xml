@@ -59,6 +59,13 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/libs/engine.jar</systemPath>
 		</dependency>
+		<dependency>
+			<groupId>com.javaoctave</groupId>
+			<artifactId>java-octave</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/libs/JavaOctave.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
