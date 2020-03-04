@@ -1,0 +1,6 @@
+[submodule "core"]
+	path = core
+	url = https://github.com/EdgarACarneiro/stfXCore
+[submodule "PR-GLS-service"]
+	path = PR-GLS-service
+	url = https://github.com/EdgarACarneiro/PR-GLS-service
