@@ -13,7 +13,12 @@ git clone https://github.com/EdgarACarneiro/stfX.git
 git submodule update --init --recursive
 ```
 
-To add new submodules use the command
+To update the submodules use the command:
+```shell
+git pull --recurse-submodules
+```
+
+To add new submodules use the command:
 ```shell
 git submodule add <submudole link>
 ```
