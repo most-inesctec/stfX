@@ -10,7 +10,7 @@ git clone --recursive https://github.com/EdgarACarneiro/stfX.git
 * Two steps - first cloning repository and then updating sub-modules:
 ```shell
 git clone https://github.com/EdgarACarneiro/stfX.git
-git submodule update --init -recursive
+git submodule update --init --recursive
 ```
 
 To add new submodules use the command
