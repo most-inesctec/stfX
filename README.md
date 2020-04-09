@@ -22,3 +22,9 @@ To add new submodules use the command:
 ```shell
 git submodule add <submudole link>
 ```
+
+## Run Instructions
+To run the application, using Docker (one must have it installed), run:
+```shell
+sh docker.sh
+```
