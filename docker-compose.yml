@@ -10,6 +10,8 @@ services:
     build: ./core/stfXCore
     container_name: stfx-core
     ports:
-    - 8080:8080
-    dependends_on:
-    - cpd-service
+      - 8080:8080
+    environment:
+      - PSR_endpoint=http://cpd-service:5000/cpd-all
+    depends_on:
+      - cpd-service
