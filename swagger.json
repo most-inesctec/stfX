@@ -1,0 +1,422 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "sftX API",
+    "description" : "API to describe connection between storyboard and the SpatioTemporal Feature eXtractor (stfX) server.",
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "2.1.0"
+  },
+  "servers" : [ {
+    "url" : "http://fctmost.inesctec.pt:8080",
+    "description" : "Interactive Storytelling"
+  } ],
+  "tags" : [ {
+    "name" : "storyboard",
+    "description" : "Operations for managing the storyboard"
+  } ],
+  "paths" : {
+    "/storyboard" : {
+      "post" : {
+        "tags" : [ "storyboard" ],
+        "summary" : "Load the dataset and respective metadata to the server",
+        "description" : "Load the spatiotemporal dataset to the server, so that the analysis between snapshots can be done.",
+        "operationId" : "createStoryboard",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "uuid of the stored dataset",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "number",
+                  "example" : 1
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Missing information in the performed request"
+          }
+        }
+      }
+    },
+    "/storyboard/file" : {
+      "post" : {
+        "tags" : [ "storyboard" ],
+        "summary" : "Load the dataset and respective metadata to the server, using a json file",
+        "description" : "Load the spatiotemporal dataset to the server, from a json file, so that the analysis between snapshots can be done.",
+        "operationId" : "createStoryboardFromFile",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_1"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "uuid of the stored dataset",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "number",
+                  "example" : 1
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Missing information in the performed request"
+          }
+        }
+      }
+    },
+    "/storyboard/metadata/{id}" : {
+      "get" : {
+        "tags" : [ "metadata" ],
+        "summary" : "Get this storbyoard's dataset metadata",
+        "description" : "Get the dataset metadata used in the creation of this storyboard",
+        "operationId" : "getMetadata",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The id of the dataset, returned in its creation",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "number",
+            "example" : 1
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The dataset metadata",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/DatasetMetadata"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Could not find storyboard {id}"
+          }
+        }
+      }
+    },
+    "/storyboard/{id}" : {
+      "post" : {
+        "tags" : [ "storyboard" ],
+        "summary" : "Get storyboard frames",
+        "description" : "By passing user settings, get the events of interest, in a storyboard manner",
+        "operationId" : "getEventsOfInterest",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "The id of the dataset, returned in its creation",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "number",
+            "example" : 1
+          }
+        }, {
+          "name" : "initialTimestamp",
+          "in" : "query",
+          "description" : "The initial timestamp used in the parsing of the events of interest.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "number",
+            "example" : 100
+          }
+        }, {
+          "name" : "finalTimestamp",
+          "in" : "query",
+          "description" : "The final timestamp used in the parsing of the events of interest.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "number",
+            "example" : 500
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_2"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Frame"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Missing information in the performed request"
+          },
+          "404" : {
+            "description" : "Could not find storyboard {id}"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "storyboard" ],
+        "summary" : "Delete storyboard",
+        "description" : "Delete the a dataset and associated data from the server",
+        "operationId" : "deleteStoryboard",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "number",
+            "example" : 1
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Proceeded with dataset deletion"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "DatasetMetadata" : {
+        "required" : [ "startTime", "timePeriod" ],
+        "type" : "object",
+        "properties" : {
+          "timePeriod" : {
+            "type" : "number",
+            "description" : "The number of seconds seprating each dataset snapshot.",
+            "example" : 5
+          },
+          "startTime" : {
+            "type" : "number",
+            "description" : "The number of seconds, elapsed since 1 Jan 1970, when the dataset occurs.",
+            "example" : 100
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "This dataset name.",
+            "example" : "DatasetNameExample"
+          }
+        }
+      },
+      "GenericThreshold" : {
+        "type" : "object",
+        "properties" : {
+          "delta" : {
+            "type" : "number",
+            "example" : 3.1
+          },
+          "directedAcc" : {
+            "type" : "number",
+            "example" : 8
+          },
+          "absoluteAcc" : {
+            "type" : "number",
+            "example" : 10.2
+          }
+        }
+      },
+      "TranslationThresholds" : {
+        "description" : "The threshold is the magnitude of the translation. The return of this processing will be a translation vector.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/GenericThreshold"
+        } ]
+      },
+      "RotationThresholds" : {
+        "description" : "The threshold is the absolute rotation in degrees. The return of this processing will be the triggering angle (either positive or negative), also in degrees.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/GenericThreshold"
+        } ]
+      },
+      "UniformScaleThresholds" : {
+        "description" : "The threshold is the absolute value of the difference of scaling (e.g. a threshold of 0.2 will be triggered on a scaling of 1.2 and of 0.8). The return of this processing is the scaled that occurred (e.g. 1.2 or 0.8).",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/GenericThreshold"
+        } ]
+      },
+      "ThresholdParameters" : {
+        "type" : "object",
+        "properties" : {
+          "translation" : {
+            "$ref" : "#/components/schemas/TranslationThresholds"
+          },
+          "rotation" : {
+            "$ref" : "#/components/schemas/RotationThresholds"
+          },
+          "scale" : {
+            "$ref" : "#/components/schemas/UniformScaleThresholds"
+          },
+          "immutability" : {
+            "type" : "number",
+            "description" : "The threshold represents the amount of time the polygon has to be imutable to be considered as such.",
+            "example" : 1000
+          }
+        }
+      },
+      "State" : {
+        "required" : [ "representation", "timestamp" ],
+        "type" : "object",
+        "properties" : {
+          "representation" : {
+            "type" : "array",
+            "example" : [ [ 0, 2 ], [ 2, 0 ], [ 0, 0 ] ],
+            "items" : {
+              "type" : "array",
+              "items" : {
+                "type" : "number"
+              }
+            }
+          },
+          "timestamp" : {
+            "type" : "number",
+            "example" : 84
+          }
+        }
+      },
+      "Event" : {
+        "required" : [ "trigger", "triggerValue", "type" ],
+        "type" : "object",
+        "properties" : {
+          "trigger" : {
+            "type" : "string",
+            "description" : "In IMMUTABILITY and UNIMPORTANT events this value is set to null",
+            "example" : "DIRECTED_ACC",
+            "enum" : [ "DELTA", "DIRECTED_ACC", "ABSOLUTE_ACC]" ]
+          },
+          "type" : {
+            "type" : "string",
+            "example" : "TRANSLATION",
+            "enum" : [ "IMMUTABILITY", "UNIMPORTANT", "TRANSLATION", "ROTATION", "UNIFORM_SCALE" ]
+          },
+          "triggerValue" : {
+            "$ref" : "#/components/schemas/Event_triggerValue"
+          }
+        }
+      },
+      "Frame" : {
+        "required" : [ "events", "phenomena", "temporalRange" ],
+        "type" : "object",
+        "properties" : {
+          "events" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Event"
+            }
+          },
+          "temporalRange" : {
+            "type" : "array",
+            "example" : [ 84, 99 ],
+            "items" : {
+              "type" : "number"
+            }
+          },
+          "phenomena" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/State"
+            }
+          }
+        }
+      },
+      "body" : {
+        "required" : [ "dataset", "metadata" ],
+        "type" : "object",
+        "properties" : {
+          "dataset" : {
+            "type" : "array",
+            "description" : "The dataset as a sequence of polygons (as a list of vertices)",
+            "example" : [ [ [ 0, 1 ], [ 1, 0 ], [ 0, 0 ] ], [ [ 4, 5 ], [ 5, 4 ], [ 4, 4 ] ] ],
+            "items" : {
+              "type" : "array",
+              "items" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "number"
+                }
+              }
+            }
+          },
+          "metadata" : {
+            "$ref" : "#/components/schemas/DatasetMetadata"
+          }
+        }
+      },
+      "body_1" : {
+        "type" : "object",
+        "properties" : {
+          "dataset" : {
+            "type" : "string",
+            "format" : "binary"
+          }
+        }
+      },
+      "body_2" : {
+        "required" : [ "parameters" ],
+        "type" : "object",
+        "properties" : {
+          "parameters" : {
+            "$ref" : "#/components/schemas/ThresholdParameters"
+          }
+        }
+      },
+      "Event_triggerValue" : {
+        "type" : "object",
+        "properties" : {
+          "transformation" : {
+            "example" : [ 1, 0 ],
+            "oneOf" : [ {
+              "type" : "number"
+            }, {
+              "type" : "array",
+              "items" : {
+                "type" : "number"
+              }
+            } ]
+          }
+        },
+        "description" : "In UNIMPORTANT events this value is set to null"
+      }
+    }
+  }
+}
