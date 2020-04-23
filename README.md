@@ -15,7 +15,7 @@ git submodule update --init --recursive
 
 To update the submodules use the command:
 ```shell
-git pull --recurse-submodules
+git submodule foreach git pull origin master
 ```
 
 To add new submodules use the command:
