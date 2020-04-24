@@ -10,7 +10,7 @@
     "version" : "2.1.0"
   },
   "servers" : [ {
-    "url" : "http://stfx-core:8081",
+    "url" : "http://fctmost.inesctec.pt:0080/stfx",
     "description" : "Interactive Storytelling"
   } ],
   "tags" : [ {
