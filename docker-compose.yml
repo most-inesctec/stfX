@@ -33,8 +33,6 @@ services:
     container_name: swagger
     expose:
       - 8080
-    ports:
-      - 8082:8080
     environment:
       SWAGGER_JSON: /spec/swagger.json
     depends_on:
