@@ -40,8 +40,8 @@ def parse_obj(in_dir: str, obj_file: str):
             if (line[0] == "v"):
                 _, *line_contents = line.split(" ")
                 polygon.append([
-                    float(line_contents[2]),
-                    float(line_contents[0])
+                    float(line_contents[0]),
+                    float(line_contents[1])
                 ])
 
     return polygon
@@ -69,6 +69,7 @@ def main():
     save(dataset,
          args.output_file,
          args.output_dir,)
+
 
 if __name__ == '__main__':
     main()
