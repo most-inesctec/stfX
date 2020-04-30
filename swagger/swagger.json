@@ -7,7 +7,7 @@
       "name" : "Apache 2.0",
       "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version" : "2.1.0"
+    "version" : "2.1.1"
   },
   "servers" : [ {
     "url" : "http://fctmost.inesctec.pt:0080/stfx",
@@ -28,7 +28,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body"
+                "$ref" : "#/components/schemas/Dataset"
               }
             }
           },
@@ -62,7 +62,7 @@
           "content" : {
             "multipart/form-data" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_1"
+                "$ref" : "#/components/schemas/body"
               }
             }
           },
@@ -165,7 +165,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/body_2"
+                "$ref" : "#/components/schemas/Thresholds"
               }
             }
           },
@@ -177,10 +177,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/Frame"
-                  }
+                  "$ref" : "#/components/schemas/FramedDataset"
                 }
               }
             }
@@ -219,6 +216,29 @@
   },
   "components" : {
     "schemas" : {
+      "Dataset" : {
+        "required" : [ "dataset", "metadata" ],
+        "type" : "object",
+        "properties" : {
+          "dataset" : {
+            "type" : "array",
+            "description" : "The dataset as a sequence of polygons (as a list of vertices)",
+            "example" : [ [ [ 0, 1 ], [ 1, 0 ], [ 0, 0 ] ], [ [ 4, 5 ], [ 5, 4 ], [ 4, 4 ] ] ],
+            "items" : {
+              "type" : "array",
+              "items" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "number"
+                }
+              }
+            }
+          },
+          "metadata" : {
+            "$ref" : "#/components/schemas/DatasetMetadata"
+          }
+        }
+      },
       "DatasetMetadata" : {
         "required" : [ "startTime", "timePeriod" ],
         "type" : "object",
@@ -245,15 +265,23 @@
         "properties" : {
           "delta" : {
             "type" : "number",
+            "description" : "Value above which an event is triggered, using this threshold, between two sequential temporal snapshots",
             "example" : 3.1
           },
           "directedAcc" : {
             "type" : "number",
+            "description" : "Value above which an event is triggered, using this threshold, between a sequence of temporal snapshots, that progress in the same direction",
             "example" : 8
           },
           "absoluteAcc" : {
             "type" : "number",
+            "description" : "Value above which an event is triggered, using this threshold, between a sequence of temporal snapshots",
             "example" : 10.2
+          },
+          "noiseEpsilon" : {
+            "type" : "number",
+            "description" : "Value below which transformations are considered to be noise and therefore, assumed to be null",
+            "example" : 0.02
           }
         }
       },
@@ -291,6 +319,15 @@
             "type" : "number",
             "description" : "The threshold represents the amount of time the polygon has to be imutable to be considered as such.",
             "example" : 1000
+          }
+        }
+      },
+      "Thresholds" : {
+        "required" : [ "parameters" ],
+        "type" : "object",
+        "properties" : {
+          "parameters" : {
+            "$ref" : "#/components/schemas/ThresholdParameters"
           }
         }
       },
@@ -359,44 +396,18 @@
           }
         }
       },
-      "body" : {
-        "required" : [ "dataset", "metadata" ],
-        "type" : "object",
-        "properties" : {
-          "dataset" : {
-            "type" : "array",
-            "description" : "The dataset as a sequence of polygons (as a list of vertices)",
-            "example" : [ [ [ 0, 1 ], [ 1, 0 ], [ 0, 0 ] ], [ [ 4, 5 ], [ 5, 4 ], [ 4, 4 ] ] ],
-            "items" : {
-              "type" : "array",
-              "items" : {
-                "type" : "array",
-                "items" : {
-                  "type" : "number"
-                }
-              }
-            }
-          },
-          "metadata" : {
-            "$ref" : "#/components/schemas/DatasetMetadata"
-          }
+      "FramedDataset" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Frame"
         }
       },
-      "body_1" : {
+      "body" : {
         "type" : "object",
         "properties" : {
           "dataset" : {
             "type" : "string",
             "format" : "binary"
-          }
-        }
-      },
-      "body_2" : {
-        "required" : [ "parameters" ],
-        "type" : "object",
-        "properties" : {
-          "parameters" : {
-            "$ref" : "#/components/schemas/ThresholdParameters"
           }
         }
       },
