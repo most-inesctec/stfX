@@ -37,7 +37,7 @@ def parse_obj(in_dir: str, obj_file: str):
 
     with open("%s/%s" % (in_dir, obj_file), "r") as fd:
         for line in fd.readlines():
-            if (line[0] == "v"):
+            if (line[:2] == "v "):
                 _, *line_contents = line.split(" ")
                 polygon.append([
                     float(line_contents[0]),
