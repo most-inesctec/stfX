@@ -10,7 +10,7 @@ def parse_args():
         description='Script to convert a directory containing .obj files, describing an animation, to json.')
 
     ap.add_argument('-i', '--input_dir', type=str,
-                    required=True, help='The input file containing the SPTDataLab output')
+                    required=True, help='The input directory containing the SPTDataLab output')
     ap.add_argument('-o', '--output_dir', type=str,
                     default='./', help='Output directory for the datasets. Default is current directory.')
     ap.add_argument('-of', '--output_file', type=str,
