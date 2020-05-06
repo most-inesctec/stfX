@@ -15,7 +15,7 @@ def parse_args():
                     required=True, help='The directory containing the resources necessary for this test.\
                         The output is also written to this directory, in file result.txt')
     ap.add_argument('-e', '--endpoint', type=str,
-                    default='http://localhost:0080/stfx/', help='The endpoint running stfX. Default is http://localhost:0080/stfx/')
+                    default='http://localhost:0080/stfx', help='The endpoint running stfX. Default is http://localhost:0080/stfx')
 
     return ap.parse_args()
 
@@ -47,21 +47,39 @@ def verify_dir(dir: str) -> bool:
 
 
 def load_dataset(dir: str, endpoint: str) -> str:
-    """Load the given dataset to the stfX server"""
+    """Load the dataset to the stfX server"""
     with open("%s/dataset.json" % dir, "r") as dataset_file:
         dataset = json.load(dataset_file)
-        response = requests.post(endpoint + "storyboard", json=dataset)
+        response = requests.post(endpoint + "/storyboard", json=dataset)
         if response.status_code != 200:
             raise Exception(
-                colored("POST /storyboard {}".format(response.status_code), "red"))
+                colored("POST /storyboard %i" % response.status_code, "red"))
         else:
             return response.json()
+
+
+def get_events_of_interest(dir: str, endpoint: str, id: str) -> str:
+    """Get the events of interest from the stfX server"""
+    with open("%s/thresholds.json" % dir, "r") as thresholds_file:
+        thresholds = json.load(thresholds_file)
+        response = requests.post("%s/storyboard/%s" % (endpoint, id),
+                                 json=thresholds)
+        if response.status_code != 200:
+            raise Exception(
+                colored("POST /storyboard/%s %i" % (id, response.status_code), "red"))
+        else:
+            events = response.json()
+            # Removing representations
+            for event in events:
+                del event["phenomena"]
+            return events
 
 
 def test(dir: str, endpoint: str):
     """Pipeline of validatin the test using the files present in dir"""
     dataset_id = load_dataset(dir, endpoint)
-    print(dataset_id)
+    events = get_events_of_interest(dir, endpoint, dataset_id)
+    # TODO -> Compare obtained with the expected result
     return None
 
 
