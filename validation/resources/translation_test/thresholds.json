@@ -1,0 +1,23 @@
+{
+    "parameters": {
+        "translation": {
+            "delta": 10,
+            "directedAcc": 538,
+            "absoluteAcc": 800,
+            "noiseEpsilon": 0.2
+        },
+        "rotation": {
+            "delta": 15,
+            "directedAcc": 25,
+            "absoluteAcc": 45,
+            "noiseEpsilon": 0.2
+        },
+        "scale": {
+            "delta": 0.1,
+            "directedAcc": 0.3,
+            "absoluteAcc": 2,
+            "noiseEpsilon": 0.01
+        },
+        "immutability": 1000
+    }
+}
