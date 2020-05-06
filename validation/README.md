@@ -11,3 +11,4 @@ The main contents of the validation tests are:
 | Content | Responsibility |
 |:-|:-|
 | Resources | Directory containing the resources necessary for running the tests | 
+| validate.py | ... |

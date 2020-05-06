@@ -3,6 +3,7 @@ import os
 import requests
 from os.path import isfile, join
 from termcolor import colored
+import json
 
 
 def parse_args():
@@ -13,6 +14,8 @@ def parse_args():
     ap.add_argument('-d', '--dir', type=str,
                     required=True, help='The directory containing the resources necessary for this test.\
                         The output is also written to this directory, in file result.txt')
+    ap.add_argument('-e', '--endpoint', type=str,
+                    default='http://localhost:0080/stfx/', help='The endpoint running stfX. Default is http://localhost:0080/stfx/')
 
     return ap.parse_args()
 
@@ -43,8 +46,22 @@ def verify_dir(dir: str) -> bool:
     return True
 
 
-def test(dir: str):
-    # TODO
+def load_dataset(dir: str, endpoint: str) -> str:
+    """Load the given dataset to the stfX server"""
+    with open("%s/dataset.json" % dir, "r") as dataset_file:
+        dataset = json.load(dataset_file)
+        response = requests.post(endpoint + "storyboard", json=dataset)
+        if response.status_code != 200:
+            raise Exception(
+                colored("POST /storyboard {}".format(response.status_code), "red"))
+        else:
+            return response.json()
+
+
+def test(dir: str, endpoint: str):
+    """Pipeline of validatin the test using the files present in dir"""
+    dataset_id = load_dataset(dir, endpoint)
+    print(dataset_id)
     return None
 
 
@@ -53,7 +70,7 @@ def main():
     args = parse_args()
 
     if verify_dir(args.dir):
-        result = test(args.dir)
+        result = test(args.dir, args.endpoint)
         save_result(result, args.dir)
 
 
