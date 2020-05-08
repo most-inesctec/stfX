@@ -3,6 +3,7 @@ import os
 import requests
 from os.path import isfile, join
 from termcolor import colored
+from utils import m2
 import json
 
 
@@ -75,12 +76,23 @@ def get_events_of_interest(dir: str, endpoint: str, id: str) -> str:
             return events
 
 
+def evaluate(events: str, dir: str) -> dict:
+    """Compare the obtained results with the expected results"""
+    result = {}
+    result["obtained_events"] = events
+
+    with open("%s/expected_result.json" % dir, "r") as results_file:
+        expected_results = json.load(results_file)
+        result["M2"] = m2.apply_m2(events, expected_results)
+
+    return result
+
+
 def test(dir: str, endpoint: str):
     """Pipeline of validatin the test using the files present in dir"""
     dataset_id = load_dataset(dir, endpoint)
     events = get_events_of_interest(dir, endpoint, dataset_id)
-    # TODO -> Compare obtained with the expected result
-    return None
+    return evaluate(events, dir)
 
 
 def main():
