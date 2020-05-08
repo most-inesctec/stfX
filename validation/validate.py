@@ -23,7 +23,7 @@ def parse_args():
 
 def save_result(result: str, out_dir: str):
     """Save the content to the given json file in the given dir"""
-    with open("%s/result.txt" % out_dir, "w+") as fd:
+    with open("%s/result.json" % out_dir, "w+") as fd:
         fd.write(result)
 
 
@@ -76,6 +76,14 @@ def get_events_of_interest(dir: str, endpoint: str, id: str) -> str:
             return events
 
 
+def clean_server(endpoint: str, id: str):
+    """Delete from the server the loaded data"""
+    response = requests.delete("%s/storyboard/%s" % (endpoint, id))
+    if response.status_code != 200:
+        raise Exception(
+            colored("DELETE /storyboard %i" % response.status_code, "red"))
+
+
 def evaluate(events: str, dir: str) -> dict:
     """Compare the obtained results with the expected results"""
     result = {}
@@ -84,6 +92,7 @@ def evaluate(events: str, dir: str) -> dict:
     with open("%s/expected_result.json" % dir, "r") as results_file:
         expected_results = json.load(results_file)
         result["M2"] = m2.apply_m2(events, expected_results)
+        print(colored("M2 score: %i%%" % result["M2"], "green"))
 
     return result
 
@@ -92,6 +101,7 @@ def test(dir: str, endpoint: str):
     """Pipeline of validatin the test using the files present in dir"""
     dataset_id = load_dataset(dir, endpoint)
     events = get_events_of_interest(dir, endpoint, dataset_id)
+    clean_server(endpoint, dataset_id)
     return evaluate(events, dir)
 
 
@@ -101,7 +111,7 @@ def main():
 
     if verify_dir(args.dir):
         result = test(args.dir, args.endpoint)
-        save_result(result, args.dir)
+        save_result(json.dumps(result), args.dir)
 
 
 if __name__ == '__main__':
