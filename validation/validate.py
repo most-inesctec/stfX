@@ -92,7 +92,7 @@ def evaluate(events: str, dir: str) -> dict:
     with open("%s/expected_result.json" % dir, "r") as results_file:
         expected_results = json.load(results_file)
         result["M2"] = m2.apply_m2(events, expected_results)
-        print(colored("M2 score: %i%%" % result["M2"], "green"))
+        print(colored("M2 score: %f" % result["M2"], "green"))
 
     return result
 

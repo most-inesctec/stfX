@@ -1,6 +1,11 @@
 import unittest
 
-NUMBER_MAX_TRANSFORMATIONS = 5
+"""
+https://www.mathopenref.com/coordpolygonarea.html
+https://pypi.org/project/PyGLM/
+https://towardsdatascience.com/the-concave-hull-c649795c0f0f
+https://en.wikipedia.org/wiki/Alpha_shape
+"""
 
 
 def find_splits(array1: list, array2: list) -> list:
@@ -39,7 +44,7 @@ def extract_transformations(events: list) -> list:
     return [e["type"] for e in events]
 
 
-def apply_m2(results: list, expected_results: list) -> float:
+def apply_m1(results: list, expected_results: list) -> float:
     """Apply the metric M2 and obtain its result, between 0 and 100"""
     splits = find_splits(results, expected_results)
 
@@ -60,12 +65,12 @@ def apply_m2(results: list, expected_results: list) -> float:
     w_avg_distance /= splits[len(splits)-1] - splits[0]
 
     # Diving by worst-case scenario an return as percent
-    return 1 - (w_avg_distance / NUMBER_MAX_TRANSFORMATIONS)
+    return (1 - (w_avg_distance / NUMBER_MAX_TRANSFORMATIONS)) * TO_PERCENT
 
 
 class TestM2(unittest.TestCase):
 
-    def test_m2(self):
+    def test_equal(self):
         results = [{
             "events": [
                 {"type": "TRANSLATION"},
@@ -99,7 +104,11 @@ class TestM2(unittest.TestCase):
             "temporalRange": [120, 150]
         }]
 
-        self.assertEqual(apply_m2(results, expected_results), 0.84)
+        self.assertEqual(apply_m1(results, expected_results), 100)
+
+    def test_different(Self):
+
+        self.assertEqual(apply_m1(), 50)
 
 
 if __name__ == '__main__':
