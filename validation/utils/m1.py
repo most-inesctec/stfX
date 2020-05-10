@@ -1,4 +1,5 @@
 import unittest
+from shapely import geometry, affinity
 
 """
 https://www.mathopenref.com/coordpolygonarea.html
@@ -31,8 +32,41 @@ def extract_transformations(events: list) -> list:
     return [e["type"] for e in events]
 
 
-def apply_m1(results: list, expected_results: list) -> float:
-    """Apply the metric M2 and obtain its result, between 0 and 100"""
+def polygon_to_vertices_list(polygon: geometry.Polygon) -> list:
+    """Extract the polygon vertices as a list"""
+    return list(polygon.exterior.coords)
+
+
+def apply_transformations(initial_representation: list, events: list) -> float:
+    """Apply the transformations in the events list to the initial representation"""
+    scale = 1
+    rot_angle = 0
+    trans_vector = [0, 0]
+
+    for item in events:
+        for event in item["events"]:
+            if event["type"] == "TRANSLATION":
+                trans_vector[X_COORDINATE] += event["trigger"]["transformation"][X_COORDINATE]
+                trans_vector[Y_COORDINATE] += event["trigger"]["transformation"][Y_COORDINATE]
+
+            elif event["type"] == "ROTATION":
+                rot_angle += event["trigger"]["transformation"]
+
+            elif event["type"] == "UNIFORM_SCALE":
+                scale *= event["trigger"]["transformation"]
+
+    # Apply multiplication
+    polygon = geometry.Polygon(initial_representation)
+    s_polygon = affinity.scale(polygon, xfact=scale, yfact=scale)
+    r_s_polygon = affinity.rotate(s_polygon, rot_angle)
+    t_r_s_polygon = affinity.translate(r_s_polygon,
+                                       xoff=trans_vector[0],
+                                       yoff=trans_vector[1])
+    return polygon_to_vertices_list(t_r_s_polygon)
+
+
+def apply_m1(real_representation: list, perceived_representation: list) -> float:
+    """Apply the metric M1 and obtain its result, between 0 and 1"""
     return None
 
 
@@ -56,45 +90,34 @@ class TestM1(unittest.TestCase):
         ]
         self.assertEqual(surveyor_formula(square_with_repeated_vertice), 4)
 
-    # def test_equal(self):
-    #     results = [{
-    #         "events": [
-    #             {"type": "TRANSLATION"},
-    #             {"type": "ROTATION"},
-    #             {"type": "SCALE"}
-    #         ],
-    #         "temporalRange": [0, 100]
-    #     }, {
-    #         "events": [
-    #             {"type": "TRANSLATION"}
-    #         ],
-    #         "temporalRange": [100, 120]
-    #     }, {
-    #         "events": [
-    #             {"type": "ROTATION"},
-    #             {"type": "SCALE"}
-    #         ],
-    #         "temporalRange": [120, 150]
-    #     }]
-    #     expected_results = [{
-    #         "events": [
-    #             {"type": "TRANSLATION"},
-    #             {"type": "ROTATION"}
-    #         ],
-    #         "temporalRange": [0, 120]
-    #     }, {
-    #         "events": [
-    #             {"type": "ROTATION"},
-    #             {"type": "SCALE"}
-    #         ],
-    #         "temporalRange": [120, 150]
-    #     }]
-
-    #     self.assertEqual(apply_m1(results, expected_results), 100)
-
-    # def test_different(Self):
-
-    #     self.assertEqual(apply_m1(), 50)
+    def test_transformations(self):
+        representation = [
+            [1, 1],
+            [1, -1],
+            [-1, -1],
+            [-1, 1],
+            [1, 1]
+        ]
+        transformations = [{
+            "events": [
+                {"type": "TRANSLATION", "trigger": {"transformation": [5, 5]}},
+                {"type": "ROTATION", "trigger": {"transformation": 180}},
+                {"type": "UNIFORM_SCALE", "trigger": {"transformation": 1.25}}
+            ]
+        }, {
+            "events": [
+                {"type": "TRANSLATION", "trigger": {"transformation": [5, 0]}},
+                {"type": "ROTATION", "trigger": {"transformation": -90}},
+                {"type": "UNIFORM_SCALE", "trigger": {"transformation": 1.6}}
+            ]
+        }]
+        self.assertEqual(apply_transformations(representation, transformations), [
+            (8.0, 7.0),
+            (12.0, 7.0),
+            (12.0, 3.0),
+            (8.0, 3.0),
+            (8.0, 7.0),
+        ])
 
 
 if __name__ == '__main__':

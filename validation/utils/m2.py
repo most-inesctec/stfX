@@ -40,7 +40,7 @@ def extract_transformations(events: list) -> list:
 
 
 def apply_m2(results: list, expected_results: list) -> float:
-    """Apply the metric M2 and obtain its result, between 0 and 100"""
+    """Apply the metric M2 and obtain its result, between 0 and 1"""
     splits = find_splits(results, expected_results)
 
     formatted_results = subdivide(results, splits)\
