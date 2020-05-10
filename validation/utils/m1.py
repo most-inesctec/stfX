@@ -11,25 +11,17 @@ X_COORDINATE = 0
 Y_COORDINATE = 1
 
 
-def area(x, y):
-    n = len(x)
-    s = 0.0
-    for i in range(-1, n-1):
-        s += x[i]*y[i+1] - y[i]*x[i+1]
-    return 0.5*s
-
-
-# def surveyor_formula(polygon: list) -> float:
-#     return area([el[0] for el in polygon], [el[1] for el in polygon])
-
-
 def surveyor_formula(polygon: list) -> float:
     """Find the area of the given polygon using the surveyor formula"""
+    # Check if first and last points of polygon are equal
+    parsed_poly = polygon[0:-1]\
+        if polygon[0] == polygon[len(polygon)-1]\
+        else polygon
     area = 0
 
-    for i in range(-1, len(polygon)-1):
-        area += polygon[i][X_COORDINATE] * polygon[i+1][Y_COORDINATE] -\
-            polygon[i][Y_COORDINATE] * polygon[i+1][X_COORDINATE]
+    for i in range(-1, len(parsed_poly)-1):
+        area += parsed_poly[i][X_COORDINATE] * parsed_poly[i+1][Y_COORDINATE] -\
+            parsed_poly[i][Y_COORDINATE] * parsed_poly[i+1][X_COORDINATE]
 
     return abs(area / 2)
 
@@ -51,13 +43,18 @@ class TestM1(unittest.TestCase):
             [1, 1],
             [1, -1],
             [-1, -1],
-            [-1, 1],
-            # [0, 0],
-            # [0, 2],
-            # [2, 2],
-            # [2, 0]
+            [-1, 1]
         ]
         self.assertEqual(surveyor_formula(square), 4)
+
+        square_with_repeated_vertice = [
+            [1, 1],
+            [1, -1],
+            [-1, -1],
+            [-1, 1],
+            [1, 1]
+        ]
+        self.assertEqual(surveyor_formula(square_with_repeated_vertice), 4)
 
     # def test_equal(self):
     #     results = [{
