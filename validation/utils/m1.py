@@ -67,38 +67,24 @@ def apply_transformations(initial_representation: list, events: list) -> float:
 
 def apply_m1(real_representation: list, perceived_representation: list) -> float:
     """Apply the metric M1 and obtain its result, between 0 and 1"""
-    return None
+    joint_point_set = real_representation + perceived_representation
+    convex_hull = geometry.MultiPoint(joint_point_set).convex_hull
+    return surveyor_formula(real_representation) / surveyor_formula(polygon_to_vertices_list(convex_hull))
 
 
 class TestM1(unittest.TestCase):
 
-    def test_area(self):
-        square = [
-            [1, 1],
-            [1, -1],
-            [-1, -1],
-            [-1, 1]
-        ]
-        self.assertEqual(surveyor_formula(square), 4)
+    def __init__(self, *args, **kwargs):
+        super(TestM1, self).__init__(*args, **kwargs)
 
-        square_with_repeated_vertice = [
+        self.representation = [
             [1, 1],
             [1, -1],
             [-1, -1],
             [-1, 1],
             [1, 1]
         ]
-        self.assertEqual(surveyor_formula(square_with_repeated_vertice), 4)
-
-    def test_transformations(self):
-        representation = [
-            [1, 1],
-            [1, -1],
-            [-1, -1],
-            [-1, 1],
-            [1, 1]
-        ]
-        transformations = [{
+        self.transformations = [{
             "events": [
                 {"type": "TRANSLATION", "trigger": {"transformation": [5, 5]}},
                 {"type": "ROTATION", "trigger": {"transformation": 180}},
@@ -111,13 +97,31 @@ class TestM1(unittest.TestCase):
                 {"type": "UNIFORM_SCALE", "trigger": {"transformation": 1.6}}
             ]
         }]
-        self.assertEqual(apply_transformations(representation, transformations), [
+
+    def test_area(self):
+        square = [
+            [1, 1],
+            [1, -1],
+            [-1, -1],
+            [-1, 1]
+        ]
+        self.assertEqual(surveyor_formula(square), 4)
+        self.assertEqual(surveyor_formula(self.representation), 4)
+
+    def test_transformations(self):
+        self.assertEqual(apply_transformations(self.representation, self.transformations), [
             (8.0, 7.0),
             (12.0, 7.0),
             (12.0, 3.0),
             (8.0, 3.0),
             (8.0, 7.0),
         ])
+
+    def test_M1(self):
+        self.assertEqual(apply_m1(self.representation, self.representation), 1)
+        self.assertTrue(apply_m1(self.representation,
+                                 apply_transformations(self.representation, self.transformations))
+                        < 0.1)
 
 
 if __name__ == '__main__':
