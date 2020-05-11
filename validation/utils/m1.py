@@ -1,4 +1,5 @@
 import unittest
+from matplotlib import pyplot as plt
 from shapely import geometry, affinity
 
 """
@@ -10,6 +11,27 @@ https://en.wikipedia.org/wiki/Alpha_shape
 
 X_COORDINATE = 0
 Y_COORDINATE = 1
+
+
+def extract_x_y(polygon: list) -> (list, list):
+    """Extract the x and y coordinates as two separate lists"""
+    x_list = []
+    y_list = []
+
+    for vertex in polygon:
+        x_list.append(vertex[X_COORDINATE])
+        y_list.append(vertex[Y_COORDINATE])
+
+    return (x_list, y_list)
+
+
+def plot_polygons(hull: list, real_poly: list, color1="r", color2="b"):
+    """Plot the given two polygons, in a single figure, with different colors"""
+    p1_x, p1_y = extract_x_y(hull)
+    p2_x, p2_y = extract_x_y(real_poly)
+
+    plt.fill(p1_x, p1_y, color1, p2_x, p2_y, color2)
+    plt.show()
 
 
 def surveyor_formula(polygon: list) -> float:
@@ -25,11 +47,6 @@ def surveyor_formula(polygon: list) -> float:
             parsed_poly[i][Y_COORDINATE] * parsed_poly[i+1][X_COORDINATE]
 
     return abs(area / 2)
-
-
-def extract_transformations(events: list) -> list:
-    """Extract the transformations from the json object 'events'"""
-    return [e["type"] for e in events]
 
 
 def polygon_to_vertices_list(polygon: geometry.Polygon) -> list:
@@ -69,6 +86,7 @@ def apply_m1(real_representation: list, perceived_representation: list) -> float
     """Apply the metric M1 and obtain its result, between 0 and 1"""
     joint_point_set = real_representation + perceived_representation
     convex_hull = geometry.MultiPoint(joint_point_set).convex_hull
+    plot_polygons(polygon_to_vertices_list(convex_hull), real_representation)
     return surveyor_formula(real_representation) / surveyor_formula(polygon_to_vertices_list(convex_hull))
 
 
