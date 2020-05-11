@@ -1,13 +1,7 @@
 import unittest
+import os
 from matplotlib import pyplot as plt
 from shapely import geometry, affinity
-
-"""
-https://www.mathopenref.com/coordpolygonarea.html
-https://pypi.org/project/PyGLM/
-https://towardsdatascience.com/the-concave-hull-c649795c0f0f
-https://en.wikipedia.org/wiki/Alpha_shape
-"""
 
 X_COORDINATE = 0
 Y_COORDINATE = 1
@@ -25,13 +19,36 @@ def extract_x_y(polygon: list) -> (list, list):
     return (x_list, y_list)
 
 
-def plot_polygons(hull: list, real_poly: list, color1="r", color2="b"):
+def save_fig(dir: str):
+    """Save the current plt figure in the given directory under the name: m1.png"""
+    plt.savefig(dir + '/m1.png')
+    plt.clf()
+
+
+def plot_polygons(hull: list, real_poly: list, perceived_poly: list, dir: str = None, color1="#ff000020", color2="#0000FF20"):
     """Plot the given two polygons, in a single figure, with different colors"""
     p1_x, p1_y = extract_x_y(hull)
     p2_x, p2_y = extract_x_y(real_poly)
 
-    plt.fill(p1_x, p1_y, color1, p2_x, p2_y, color2)
-    plt.show()
+    # Figure settings
+    fig = plt.figure()
+    fig.suptitle('Hull area (red) VS Real representation area (blue)')
+    plt.xlabel('x')
+    plt.ylabel('y')
+
+    # Plotting polygons
+    plt.fill(p1_x, p1_y, color1)
+    plt.fill(p2_x, p2_y, color2)
+
+    # Plotting points
+    for p in perceived_poly:
+        plt.plot(p[X_COORDINATE], p[Y_COORDINATE], '.', color="r")
+    for p in real_poly:
+        plt.plot(p[X_COORDINATE], p[Y_COORDINATE], '.', color="b")
+
+    # plt.show()
+    if dir is not None:
+        save_fig(dir)
 
 
 def surveyor_formula(polygon: list) -> float:
@@ -82,12 +99,14 @@ def apply_transformations(initial_representation: list, events: list) -> float:
     return polygon_to_vertices_list(t_r_s_polygon)
 
 
-def apply_m1(real_representation: list, perceived_representation: list) -> float:
+def apply_m1(real_representation: list, perceived_representation: list, dir: str = None) -> float:
     """Apply the metric M1 and obtain its result, between 0 and 1"""
     joint_point_set = real_representation + perceived_representation
     convex_hull = geometry.MultiPoint(joint_point_set).convex_hull
-    plot_polygons(polygon_to_vertices_list(convex_hull), real_representation)
-    return surveyor_formula(real_representation) / surveyor_formula(polygon_to_vertices_list(convex_hull))
+    hull_vertices = polygon_to_vertices_list(convex_hull)
+    plot_polygons(hull_vertices, real_representation,
+                  perceived_representation, dir)
+    return surveyor_formula(real_representation) / surveyor_formula(hull_vertices)
 
 
 class TestM1(unittest.TestCase):
