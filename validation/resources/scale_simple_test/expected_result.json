@@ -1,0 +1,17 @@
+[
+    {
+        "events": [
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "UNIFORM_SCALE",
+                "trigger": {
+                    "transformation": 2.52
+                }
+            }
+        ],
+        "temporalRange": [
+            0,
+            60
+        ]
+    }
+]
