@@ -32,7 +32,7 @@ def plot_polygons(hull: list, real_poly: list, perceived_poly: list, dir: str = 
 
     # Figure settings
     fig = plt.figure()
-    fig.suptitle('Hull area (red) VS Real representation area (blue)')
+    fig.suptitle('Convex hull area (red) VS real representation area (blue)')
     plt.xlabel('x')
     plt.ylabel('y')
 
@@ -102,9 +102,11 @@ def apply_transformations(initial_representation: list, events: list) -> float:
 def apply_m1(real_representation: list, perceived_representation: list, dir: str = None) -> float:
     """Apply the metric M1 and obtain its result, between 0 and 1"""
     joint_point_set = real_representation + perceived_representation
+    real_convex_hull = geometry.MultiPoint(real_representation).convex_hull
+    real_vertices = polygon_to_vertices_list(real_convex_hull)
     convex_hull = geometry.MultiPoint(joint_point_set).convex_hull
     hull_vertices = polygon_to_vertices_list(convex_hull)
-    plot_polygons(hull_vertices, real_representation,
+    plot_polygons(hull_vertices, real_vertices,
                   perceived_representation, dir)
     return surveyor_formula(real_representation) / surveyor_formula(hull_vertices)
 
