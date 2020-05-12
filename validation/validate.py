@@ -3,14 +3,14 @@ import os
 import requests
 from os.path import isfile, join
 from termcolor import colored
-from utils import m2
+from utils import m2, m1
 import json
 
 
 def parse_args():
     """Parse the command line arguments"""
     ap = argparse.ArgumentParser(
-        description='Script to valida the stfX tool.')
+        description='Script to validate a test-scenario the stfX tool.')
 
     ap.add_argument('-d', '--dir', type=str,
                     required=True, help='The directory containing the resources necessary for this test.\
@@ -89,6 +89,18 @@ def evaluate(events: str, dir: str) -> dict:
     result = {}
     result["obtained_events"] = events
 
+    # M1 metric
+    with open("%s/dataset.json" % dir, "r") as dataset_file:
+        dataset = json.load(dataset_file)["dataset"]
+        init_rep = dataset[0]
+        final_rep = dataset[len(dataset)-1]
+        perceived_rep = m1.apply_transformations(init_rep, events)
+        result["M1"] = m1.apply_m1(real_representation=final_rep,
+                                   perceived_representation=perceived_rep,
+                                   dir=dir)
+        print(colored("M1 score: %f" % result["M1"], "green"))
+
+    # M2 metric
     with open("%s/expected_result.json" % dir, "r") as results_file:
         expected_results = json.load(results_file)
         result["M2"] = m2.apply_m2(events, expected_results)

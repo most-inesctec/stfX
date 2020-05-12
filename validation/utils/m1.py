@@ -25,10 +25,10 @@ def save_fig(dir: str):
     plt.clf()
 
 
-def plot_polygons(hull: list, real_poly: list, perceived_poly: list, dir: str = None, color1="#ff000020", color2="#0000FF20"):
+def plot_polygons(hull: list, real_hull: list, perceived_poly: list, real_poly: list, dir: str = None, color1="#ff000020", color2="#0000FF20"):
     """Plot the given two polygons, in a single figure, with different colors"""
     p1_x, p1_y = extract_x_y(hull)
-    p2_x, p2_y = extract_x_y(real_poly)
+    p2_x, p2_y = extract_x_y(real_hull)
 
     # Figure settings
     fig = plt.figure()
@@ -42,9 +42,9 @@ def plot_polygons(hull: list, real_poly: list, perceived_poly: list, dir: str = 
 
     # Plotting points
     for p in perceived_poly:
-        plt.plot(p[X_COORDINATE], p[Y_COORDINATE], '.', color="r")
+        plt.plot(p[X_COORDINATE], p[Y_COORDINATE], 'o', color="r")
     for p in real_poly:
-        plt.plot(p[X_COORDINATE], p[Y_COORDINATE], '.', color="b")
+        plt.plot(p[X_COORDINATE], p[Y_COORDINATE], 'x', color="b")
 
     # plt.show()
     if dir is not None:
@@ -102,13 +102,19 @@ def apply_transformations(initial_representation: list, events: list) -> float:
 def apply_m1(real_representation: list, perceived_representation: list, dir: str = None) -> float:
     """Apply the metric M1 and obtain its result, between 0 and 1"""
     joint_point_set = real_representation + perceived_representation
+    # Getting necessary hulls
     real_convex_hull = geometry.MultiPoint(real_representation).convex_hull
-    real_vertices = polygon_to_vertices_list(real_convex_hull)
     convex_hull = geometry.MultiPoint(joint_point_set).convex_hull
+    # Getting vertices of hulls
+    real_vertices = polygon_to_vertices_list(real_convex_hull)
     hull_vertices = polygon_to_vertices_list(convex_hull)
-    plot_polygons(hull_vertices, real_vertices,
-                  perceived_representation, dir)
-    return surveyor_formula(real_representation) / surveyor_formula(hull_vertices)
+
+    plot_polygons(hull=hull_vertices,
+                  real_hull=real_vertices,
+                  perceived_poly=perceived_representation,
+                  real_poly=real_representation,
+                  dir=dir)
+    return surveyor_formula(real_vertices) / surveyor_formula(hull_vertices)
 
 
 class TestM1(unittest.TestCase):
@@ -161,6 +167,14 @@ class TestM1(unittest.TestCase):
         self.assertTrue(apply_m1(self.representation,
                                  apply_transformations(self.representation, self.transformations))
                         < 0.1)
+        self.assertEqual(apply_m1([
+            (8.0, 7.0),
+            (12.0, 7.0),
+            (12.0, 3.0),
+            (8.0, 3.0),
+            (8.0, 7.0)],
+            apply_transformations(self.representation, self.transformations)),
+            1)
 
 
 if __name__ == '__main__':
