@@ -8,7 +8,7 @@
         },
         "rotation": {
             "delta": 15,
-            "directedAcc": 35,
+            "directedAcc": 40,
             "absoluteAcc": 50,
             "noiseEpsilon": 0.2
         },

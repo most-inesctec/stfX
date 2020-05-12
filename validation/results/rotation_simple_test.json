@@ -1,0 +1,1 @@
+{"obtained_events": [{"events": [{"threshold": "DIRECTED_ACC", "type": "ROTATION", "trigger": {"transformation": 35.33334}}], "temporalRange": [0, 38]}, {"events": [{"type": "UNIMPORTANT"}], "temporalRange": [38, 60]}], "M1": 0.7970043477763525, "M2": 0.8533333333333333}

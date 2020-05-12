@@ -110,20 +110,24 @@ def evaluate(events: str, dir: str) -> dict:
 
 
 def test(dir: str, endpoint: str):
-    """Pipeline of validatin the test using the files present in dir"""
+    """Pipeline of validation the test using the files present in dir"""
     dataset_id = load_dataset(dir, endpoint)
     events = get_events_of_interest(dir, endpoint, dataset_id)
     clean_server(endpoint, dataset_id)
     return evaluate(events, dir)
 
 
+def validate(dir: str, endpoint: str):
+    """Run the validation of the test-scenario indicated by the given args"""
+    if verify_dir(dir):
+        result = test(dir, endpoint)
+        save_result(json.dumps(result), dir)
+
+
 def main():
     """Main function"""
     args = parse_args()
-
-    if verify_dir(args.dir):
-        result = test(args.dir, args.endpoint)
-        save_result(json.dumps(result), args.dir)
+    validate(args.dir, args.endpoint)
 
 
 if __name__ == '__main__':
