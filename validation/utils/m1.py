@@ -25,10 +25,12 @@ def save_fig(dir: str):
     plt.clf()
 
 
-def plot_polygons(hull: list, real_hull: list, perceived_poly: list, real_poly: list, dir: str = None, color1="#ff000020", color2="#0000FF20"):
+def plot_polygons(hull: list, real_hull: list, perceived_poly: list, real_poly: list, dir: str = None):
     """Plot the given two polygons, in a single figure, with different colors"""
-    p1_x, p1_y = extract_x_y(hull)
-    p2_x, p2_y = extract_x_y(real_hull)
+    h1_x, h1_y = extract_x_y(hull)
+    h2_x, h2_y = extract_x_y(real_hull)
+    p1_x, p1_y = extract_x_y(perceived_poly)
+    p2_x, p2_y = extract_x_y(real_poly)
 
     # Figure settings
     fig = plt.figure()
@@ -36,15 +38,19 @@ def plot_polygons(hull: list, real_hull: list, perceived_poly: list, real_poly: 
     plt.xlabel('x')
     plt.ylabel('y')
 
-    # Plotting polygons
-    plt.fill(p1_x, p1_y, color1)
-    plt.fill(p2_x, p2_y, color2)
+    # Plotting hulls
+    plt.fill(h1_x, h1_y, color="#FF000020")
+    plt.fill(h2_x, h2_y, color="#0000FF20")
 
-    # Plotting points
+    # Plotting polygons lines
+    plt.plot(p1_x, p1_y, color="#FF000060")
+    plt.plot(p2_x, p2_y, color="#0000FF60")
+
+    # Plotting polygons points
     for p in perceived_poly:
-        plt.plot(p[X_COORDINATE], p[Y_COORDINATE], 'o', color="r")
+        plt.plot(p[X_COORDINATE], p[Y_COORDINATE], 'o', color="#FF0000A0")
     for p in real_poly:
-        plt.plot(p[X_COORDINATE], p[Y_COORDINATE], 'x', color="b")
+        plt.plot(p[X_COORDINATE], p[Y_COORDINATE], 'x', color="#0000FFA0")
 
     # plt.show()
     if dir is not None:
