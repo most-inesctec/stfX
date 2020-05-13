@@ -56,11 +56,13 @@ def apply_m2(results: list, expected_results: list) -> float:
         t_range = e1["temporalRange"]
         A = set(extract_transformations(e1["events"]))
         B = set(extract_transformations(e2["events"]))
-        w_avg_distance += (len(A-B) + len(B-A)) * (t_range[1] - t_range[0])
+        # Multiplying by temporal range and diving by worst-case
+        w_avg_distance += (len(A-B) + len(B-A))\
+            * (t_range[1] - t_range[0])\
+            / (len(A) + len(B))
     w_avg_distance /= splits[len(splits)-1] - splits[0]
 
-    # Diving by worst-case scenario an return as percent
-    return 1 - (w_avg_distance / NUMBER_MAX_TRANSFORMATIONS)
+    return 1 - w_avg_distance
 
 
 class TestM2(unittest.TestCase):

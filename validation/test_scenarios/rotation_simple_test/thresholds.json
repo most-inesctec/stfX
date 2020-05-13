@@ -14,7 +14,7 @@
         },
         "scale": {
             "delta": 0.1,
-            "directedAcc": 1.52,
+            "directedAcc": 0.2,
             "absoluteAcc": 2,
             "noiseEpsilon": 0.01
         },

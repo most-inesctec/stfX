@@ -1,1 +1,1 @@
-{"obtained_events": [{"events": [{"threshold": "DIRECTED_ACC", "type": "ROTATION", "trigger": {"transformation": 35.33334}}], "temporalRange": [0, 38]}, {"events": [{"type": "UNIMPORTANT"}], "temporalRange": [38, 60]}], "M1": 0.7970043477763525, "M2": 0.8533333333333333}
+{"obtained_events": [{"events": [{"threshold": "DIRECTED_ACC", "type": "ROTATION", "trigger": {"transformation": 40.000015}}], "temporalRange": [0, 45]}, {"events": [{"type": "UNIMPORTANT"}], "temporalRange": [45, 60]}], "M1": 0.7930014770071911, "M2": 0.75}
