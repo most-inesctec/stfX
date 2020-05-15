@@ -14,7 +14,7 @@
         },
         "scale": {
             "delta": 0.05,
-            "directedAcc": 1.52,
+            "directedAcc": 0.1,
             "absoluteAcc": 2
         },
         "immutability": 1000
