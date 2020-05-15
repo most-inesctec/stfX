@@ -1,0 +1,20 @@
+[
+    {
+        "events": [
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "TRANSLATION",
+                "trigger": {
+                    "transformation": [
+                        500,
+                        200
+                    ]
+                }
+            }
+        ],
+        "temporalRange": [
+            0,
+            60
+        ]
+    }
+]

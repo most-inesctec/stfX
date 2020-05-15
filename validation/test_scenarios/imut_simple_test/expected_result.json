@@ -1,0 +1,16 @@
+[
+    {
+        "events": [
+            {
+                "type": "IMMUTABILITY",
+                "trigger": {
+                    "transformation": 20
+                }
+            }
+        ],
+        "temporalRange": [
+            0,
+            60
+        ]
+    }
+]

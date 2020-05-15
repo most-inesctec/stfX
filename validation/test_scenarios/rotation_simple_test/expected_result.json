@@ -1,0 +1,17 @@
+[
+    {
+        "events": [
+            {
+                "threshold": "ABSOLUTE_ACC",
+                "type": "ROTATION",
+                "trigger": {
+                    "transformation": 50
+                }
+            }
+        ],
+        "temporalRange": [
+            0,
+            60
+        ]
+    }
+]
