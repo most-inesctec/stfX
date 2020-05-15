@@ -25,16 +25,16 @@ def save_fig(dir: str):
     plt.clf()
 
 
-def plot_polygons(hull: list, real_hull: list, perceived_poly: list, real_poly: list, dir: str = None):
+def plot_polygons(hull: list, min_hull: list, perceived_poly: list, real_poly: list, dir: str = None):
     """Plot the given two polygons, in a single figure, with different colors"""
     h1_x, h1_y = extract_x_y(hull)
-    h2_x, h2_y = extract_x_y(real_hull)
+    h2_x, h2_y = extract_x_y(min_hull)
     p1_x, p1_y = extract_x_y(perceived_poly)
     p2_x, p2_y = extract_x_y(real_poly)
 
     # Figure settings
     fig = plt.figure()
-    fig.suptitle('Convex hull area (red) VS real representation area (blue)')
+    # fig.suptitle('Convex hull area (red) VS real representation area (blue)')
     plt.xlabel('x')
     plt.ylabel('y')
 
@@ -108,19 +108,33 @@ def apply_transformations(initial_representation: list, events: list) -> float:
 def apply_m1(real_representation: list, perceived_representation: list, dir: str = None) -> float:
     """Apply the metric M1 and obtain its result, between 0 and 1"""
     joint_point_set = real_representation + perceived_representation
+
     # Getting necessary hulls
     real_convex_hull = geometry.MultiPoint(real_representation).convex_hull
+    perceived_hull = geometry.MultiPoint(perceived_representation).convex_hull
     convex_hull = geometry.MultiPoint(joint_point_set).convex_hull
+
     # Getting vertices of hulls
     real_vertices = polygon_to_vertices_list(real_convex_hull)
-    hull_vertices = polygon_to_vertices_list(convex_hull)
+    perceived_vertices = polygon_to_vertices_list(perceived_hull)
+    joint_vertices = polygon_to_vertices_list(convex_hull)
 
-    plot_polygons(hull=hull_vertices,
-                  real_hull=real_vertices,
+    # Getting the min area
+    real_area = surveyor_formula(real_vertices)
+    perceived_area = surveyor_formula(perceived_vertices)
+    if real_area <= perceived_area:
+        min_area = real_area
+        min_vertices = real_vertices
+    else:
+        min_area = perceived_area
+        min_vertices = perceived_vertices
+
+    plot_polygons(hull=joint_vertices,
+                  min_hull=min_vertices,
                   perceived_poly=perceived_representation,
                   real_poly=real_representation,
                   dir=dir)
-    return surveyor_formula(real_vertices) / surveyor_formula(hull_vertices)
+    return min_area / surveyor_formula(joint_vertices)
 
 
 class TestM1(unittest.TestCase):
@@ -146,6 +160,11 @@ class TestM1(unittest.TestCase):
                 {"type": "TRANSLATION", "trigger": {"transformation": [5, 0]}},
                 {"type": "ROTATION", "trigger": {"transformation": -90}},
                 {"type": "UNIFORM_SCALE", "trigger": {"transformation": 1.6}}
+            ]
+        }]
+        self.min_scale = [{
+            "events": [
+                {"type": "UNIFORM_SCALE", "trigger": {"transformation": 0.5}}
             ]
         }]
 
@@ -181,6 +200,11 @@ class TestM1(unittest.TestCase):
             (8.0, 7.0)],
             apply_transformations(self.representation, self.transformations)),
             1)
+
+    def test_mean_perceived(self):
+        self.assertEqual(apply_m1(self.representation,
+                                  apply_transformations(self.representation, self.min_scale)),
+                         0.25)
 
 
 if __name__ == '__main__':

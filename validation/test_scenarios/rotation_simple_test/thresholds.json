@@ -7,10 +7,9 @@
             "noiseEpsilon": 0.2
         },
         "rotation": {
-            "delta": 15,
-            "directedAcc": 40,
-            "absoluteAcc": 50,
-            "noiseEpsilon": 0.2
+            "delta": 3,
+            "directedAcc": 35,
+            "absoluteAcc": 50
         },
         "scale": {
             "delta": 0.1,
