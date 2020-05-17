@@ -1,1 +1,1 @@
-{"obtained_events": [{"events": [{"threshold": "DIRECTED_ACC", "type": "UNIFORM_SCALE", "trigger": {"transformation": 2.5200007}}], "temporalRange": [0, 60]}], "M1": 0.9092732104083902, "M2": 1.0}
+{"obtained_events": [{"events": [{"threshold": "DIRECTED_ACC", "type": "UNIFORM_SCALE", "trigger": {"transformation": 2.5200002}}], "temporalRange": [0, 60]}], "M1": 0.9092733950532358, "M2": 1.0}

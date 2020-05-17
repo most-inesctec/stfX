@@ -2,6 +2,7 @@ import argparse
 import os
 from os.path import isdir, join
 from tqdm import tqdm
+from termcolor import colored
 from validate import validate
 
 
@@ -52,6 +53,7 @@ def main():
     create_dir(args.out_dir)
 
     for scenario in tqdm(scenarios):
+        print(colored("::: %s :::" % scenario, "blue"))
         run_test_scenario(join(args.dir, scenario),
                           args.out_dir,
                           args.endpoint)

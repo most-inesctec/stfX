@@ -1,0 +1,134 @@
+{
+    "obtained_events": [
+        {
+            "events": [
+                {
+                    "type": "IMMUTABILITY",
+                    "trigger": {
+                        "transformation": 30
+                    }
+                }
+            ],
+            "temporalRange": [
+                0,
+                30
+            ]
+        },
+        {
+            "events": [
+                {
+                    "threshold": "ABSOLUTE_ACC",
+                    "type": "TRANSLATION",
+                    "trigger": {
+                        "transformation": [
+                            1000.0,
+                            -400.00003
+                        ]
+                    }
+                }
+            ],
+            "temporalRange": [
+                30,
+                90
+            ]
+        },
+        {
+            "events": [
+                {
+                    "threshold": "ABSOLUTE_ACC",
+                    "type": "TRANSLATION",
+                    "trigger": {
+                        "transformation": [
+                            -336.32513,
+                            -877.61804
+                        ]
+                    }
+                },
+                {
+                    "threshold": "DIRECTED_ACC",
+                    "type": "ROTATION",
+                    "trigger": {
+                        "transformation": 50.000008
+                    }
+                }
+            ],
+            "temporalRange": [
+                90,
+                120
+            ]
+        },
+        {
+            "events": [
+                {
+                    "threshold": "ABSOLUTE_ACC",
+                    "type": "TRANSLATION",
+                    "trigger": {
+                        "transformation": [
+                            98.186646,
+                            972.87335
+                        ]
+                    }
+                }
+            ],
+            "temporalRange": [
+                120,
+                180
+            ]
+        },
+        {
+            "events": [
+                {
+                    "threshold": "ABSOLUTE_ACC",
+                    "type": "TRANSLATION",
+                    "trigger": {
+                        "transformation": [
+                            0.0,
+                            0.0
+                        ]
+                    }
+                },
+                {
+                    "type": "IMMUTABILITY",
+                    "trigger": {
+                        "transformation": 60
+                    }
+                }
+            ],
+            "temporalRange": [
+                180,
+                240
+            ]
+        },
+        {
+            "events": [
+                {
+                    "threshold": "ABSOLUTE_ACC",
+                    "type": "TRANSLATION",
+                    "trigger": {
+                        "transformation": [
+                            20.769165,
+                            -8.307678
+                        ]
+                    }
+                }
+            ],
+            "temporalRange": [
+                240,
+                241
+            ]
+        },
+        {
+            "events": [
+                {
+                    "type": "UNIMPORTANT"
+                }
+            ],
+            "temporalRange": [
+                241,
+                270
+            ]
+        }
+    ],
+    "M1": 0.21517830131750432,
+    "M2": 0.5555555555555556
+}

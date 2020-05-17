@@ -5,12 +5,12 @@
             "noiseEpsilon": 0.2
         },
         "rotation": {
-            "directedAcc": 50,
+            "directedAcc": 49.5,
             "noiseEpsilon": 0.2
         },
         "scale": {
-            "directedAcc": 0.3,
-            "noiseEpsilon": 0.01
+            "directedAcc": 0.02,
+            "noiseEpsilon": 0.005
         },
         "immutability": 30
     }
