@@ -43,8 +43,8 @@ def plot_polygons(hull: list, min_hull: list, perceived_poly: list, real_poly: l
     plt.fill(h2_x, h2_y, color="#0000FF20")
 
     # Plotting polygons lines
-    plt.plot(p1_x, p1_y, color="#FF000060")
-    plt.plot(p2_x, p2_y, color="#0000FF60")
+    plt.plot(p1_x, p1_y, color="#FF000060")  # Red perceived poly
+    plt.plot(p2_x, p2_y, color="#0000FF60")  # Blue real poly
 
     # Plotting polygons points
     for p in perceived_poly:
@@ -97,8 +97,13 @@ def apply_transformations(initial_representation: list, events: list) -> float:
 
     # Apply multiplication
     polygon = geometry.Polygon(initial_representation)
-    s_polygon = affinity.scale(polygon, xfact=scale, yfact=scale)
-    r_s_polygon = affinity.rotate(s_polygon, rot_angle)
+    s_polygon = affinity.scale(polygon,
+                               xfact=scale,
+                               yfact=scale,
+                               origin=(0, 0))
+    r_s_polygon = affinity.rotate(s_polygon,
+                                  rot_angle,
+                                  origin=(0, 0))
     t_r_s_polygon = affinity.translate(r_s_polygon,
                                        xoff=trans_vector[0],
                                        yoff=trans_vector[1])

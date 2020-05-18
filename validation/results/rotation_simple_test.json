@@ -1,1 +1,1 @@
-{"obtained_events": [{"events": [{"threshold": "ABSOLUTE_ACC", "type": "ROTATION", "trigger": {"transformation": -10.000006}}], "temporalRange": [0, 60]}], "M1": 0.9774502084172171, "M2": 1.0}
+{"obtained_events": [{"events": [{"threshold": "ABSOLUTE_ACC", "type": "ROTATION", "trigger": {"transformation": -10.000006}}], "temporalRange": [0, 60]}], "M1": 0.9999999002643974, "M2": 1.0}
