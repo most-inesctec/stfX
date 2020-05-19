@@ -39,7 +39,7 @@ def extract_transformations(events: list) -> list:
     return [e["type"] for e in events]
 
 
-def apply_m2(results: list, expected_results: list) -> float:
+def apply_m2(results: list, expected_results: list) -> (float, list):
     """Apply the metric M2 and obtain its result, between 0 and 1"""
     splits = find_splits(results, expected_results)
 
@@ -50,19 +50,33 @@ def apply_m2(results: list, expected_results: list) -> float:
         if len(expected_results) < len(splits) - 1\
         else expected_results
 
-    # Computing the weighted average distance
+    # Computing the weighted average distance and saving the differences
     w_avg_distance = 0
+    differences = []
+
     for e1, e2 in zip(formatted_results, formatted_expected):
         t_range = e1["temporalRange"]
         A = set(extract_transformations(e1["events"]))
         B = set(extract_transformations(e2["events"]))
+        removals = A-B
+        insertions = B-A
+
+        # Appending differences to list
+        if len(removals) + len(insertions) != 0:
+            diff = {"temporalRange": t_range}
+            if (len(removals) > 0):
+                diff["removals"] = list(removals)
+            if (len(insertions) > 0):
+                diff["insertions"] = list(insertions)
+            differences.append(diff)
+
         # Multiplying by temporal range and diving by worst-case
-        w_avg_distance += (len(A-B) + len(B-A))\
+        w_avg_distance += (len(removals) + len(insertions))\
             * (t_range[1] - t_range[0])\
             / (len(A) + len(B))
-    w_avg_distance /= splits[len(splits)-1] - splits[0]
 
-    return 1 - w_avg_distance
+    w_avg_distance /= splits[len(splits)-1] - splits[0]
+    return (1 - w_avg_distance, differences)
 
 
 class TestM2(unittest.TestCase):
