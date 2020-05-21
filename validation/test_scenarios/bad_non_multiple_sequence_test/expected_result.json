@@ -1,0 +1,105 @@
+[
+    {
+        "events": [
+            {
+                "type": "IMMUTABILITY",
+                "trigger": {
+                    "transformation": 30
+                }
+            }
+        ],
+        "temporalRange": [
+            0,
+            30
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "ABSOLUTE_ACC",
+                "type": "TRANSLATION",
+                "trigger": {
+                    "transformation": 1077
+                }
+            }
+        ],
+        "temporalRange": [
+            30,
+            90
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "ROTATION",
+                "trigger": {
+                    "transformation": 50
+                }
+            }
+        ],
+        "temporalRange": [
+            90,
+            120
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "ROTATION",
+                "trigger": {
+                    "transformation": -50
+                }
+            }
+        ],
+        "temporalRange": [
+            120,
+            150
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "UNIFORM_SCALE",
+                "trigger": {
+                    "transformation": 1.3
+                }
+            }
+        ],
+        "temporalRange": [
+            150,
+            180
+        ]
+    },
+    {
+        "events": [
+            {
+                "type": "IMMUTABILITY",
+                "trigger": {
+                    "transformation": 60
+                }
+            }
+        ],
+        "temporalRange": [
+            180,
+            240
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "UNIFORM_SCALE",
+                "trigger": {
+                    "transformation": 0.3769
+                }
+            }
+        ],
+        "temporalRange": [
+            240,
+            270
+        ]
+    }
+]
