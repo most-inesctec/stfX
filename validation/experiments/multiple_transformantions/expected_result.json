@@ -1,0 +1,201 @@
+[
+    {
+        "events": [
+            {
+                "threshold": "ABSOLUTE_ACC",
+                "type": "TRANSLATION",
+                "trigger": {
+                    "transformation": 13.734
+                }
+            }
+        ],
+        "temporalRange": [
+            1,
+            110
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "ABSOLUTE_ACC",
+                "type": "TRANSLATION",
+                "trigger": {
+                    "transformation": 1.697
+                }
+            },
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "ROTATION",
+                "trigger": {
+                    "transformation": -10
+                }
+            }
+        ],
+        "temporalRange": [
+            110,
+            120
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "ABSOLUTE_ACC",
+                "type": "TRANSLATION",
+                "trigger": {
+                    "transformation": 4.3496
+                }
+            }
+        ],
+        "temporalRange": [
+            120,
+            150
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "ABSOLUTE_ACC",
+                "type": "TRANSLATION",
+                "trigger": {
+                    "transformation": 1.069
+                }
+            },
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "ROTATION",
+                "trigger": {
+                    "transformation": 10
+                }
+            }
+        ],
+        "temporalRange": [
+            150,
+            160
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "ABSOLUTE_ACC",
+                "type": "TRANSLATION",
+                "trigger": {
+                    "transformation": 1.516
+                }
+            }
+        ],
+        "temporalRange": [
+            160,
+            190
+        ]
+    },
+    {
+        "events": [
+            {
+                "type": "IMMUTABILITY",
+                "trigger": {
+                    "transformation": 30
+                }
+            }
+        ],
+        "temporalRange": [
+            190,
+            210
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "ABSOLUTE_ACC",
+                "type": "TRANSLATION",
+                "trigger": {
+                    "transformation": 31.623
+                }
+            },
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "UNIFORM_SCALE",
+                "trigger": {
+                    "transformation": 0.4
+                }
+            }
+        ],
+        "temporalRange": [
+            210,
+            225
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "TRANSLATION",
+                "trigger": {
+                    "transformation": 5
+                }
+            },
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "UNIFORM_SCALE",
+                "trigger": {
+                    "transformation": 3
+                }
+            }
+        ],
+        "temporalRange": [
+            225,
+            255
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "ROTATION",
+                "trigger": {
+                    "transformation": -6.47
+                }
+            }
+        ],
+        "temporalRange": [
+            255,
+            260
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "ROTATION",
+                "trigger": {
+                    "transformation": -10.53
+                }
+            },
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "UNIFORM_SCALE",
+                "trigger": {
+                    "transformation": 0.95
+                }
+            }
+        ],
+        "temporalRange": [
+            260,
+            265
+        ]
+    },
+    {
+        "events": [
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "ROTATION",
+                "trigger": {
+                    "transformation": -68
+                }
+            }
+        ],
+        "temporalRange": [
+            265,
+            275
+        ]
+    }
+]
