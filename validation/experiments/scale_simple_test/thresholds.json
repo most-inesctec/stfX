@@ -17,6 +17,6 @@
             "directedAcc": 1.52,
             "absoluteAcc": 2
         },
-        "immutability": 1000
+        "immutability": 5
     }
 }

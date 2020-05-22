@@ -1,0 +1,34 @@
+[
+    {
+        "events": [
+            {
+                "threshold": "ABSOLUTE_ACC",
+                "type": "TRANSLATION",
+                "trigger": {
+                    "transformation": [
+                        -200,
+                        40
+                    ]
+                }
+            },
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "ROTATION",
+                "trigger": {
+                    "transformation": -45
+                }
+            },
+            {
+                "threshold": "DIRECTED_ACC",
+                "type": "UNIFORM_SCALE",
+                "trigger": {
+                    "transformation": 2
+                }
+            }
+        ],
+        "temporalRange": [
+            0,
+            60
+        ]
+    }
+]
