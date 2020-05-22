@@ -36,7 +36,7 @@ def subdivide(events: list, splits: list) -> list:
 
 def extract_transformations(events: list) -> list:
     """Extract the transformations from the json object 'events'"""
-    return [e["type"] for e in events]
+    return [e["type"] for e in events if e["type"] != "UNIMPORTANT"]
 
 
 def apply_m2(results: list, expected_results: list) -> (float, list):
