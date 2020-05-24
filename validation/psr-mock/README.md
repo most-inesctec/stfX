@@ -1,0 +1,7 @@
+# Point Set Registration Mock
+
+A REST API, using [json-server](), that mocks the Point Set Registration micro-service.
+
+The responses are defined in the `db.json` file.
+
+Run `npm install` followed by `npm run server` to the the mock server running.

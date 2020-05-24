@@ -1,0 +1,20 @@
+{
+  "name": "psr-mock",
+  "version": "1.0.0",
+  "description": "Point Set Registration mock service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "./node_modules/.bin/json-server --watch db.json"
+  },
+  "keywords": [
+    "mock",
+    "validation",
+    "test"
+  ],
+  "author": "EdgarACarneiro",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.16.1"
+  }
+}
