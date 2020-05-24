@@ -4,4 +4,4 @@ A REST API, using [json-server](), that mocks the Point Set Registration micro-s
 
 The responses are defined in the `db.json` file.
 
-Run `npm install` followed by `npm run server` to the the mock server running.
+Run `npm install` followed by `npm start` to the the mock server running.
