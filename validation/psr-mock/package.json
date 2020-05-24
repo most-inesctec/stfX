@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/json-server --watch db.json"
+    "start": "./node_modules/.bin/json-server --watch db.json --middlewares middleware.js --port 5000"
   },
   "keywords": [
     "mock",

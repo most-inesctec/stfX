@@ -1,1 +1,1 @@
-{"obtained_events": [{"events": [{"type": "UNIMPORTANT"}], "temporalRange": [0, 60]}], "M1": 0.24736272009313484, "M2": 0.0, "M2_diff": [{"temporalRange": [0, 60], "insertions": ["UNIFORM_SCALE", "TRANSLATION", "ROTATION"]}]}
+{"obtained_events": [{"events": [{"type": "UNIMPORTANT"}], "temporalRange": [0, 60]}], "M1": 0.24736272009313484, "M2": 0.0, "M2_diff": [{"temporalRange": [0, 60], "insertions": ["TRANSLATION", "ROTATION", "UNIFORM_SCALE"]}]}
