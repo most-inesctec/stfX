@@ -5,7 +5,7 @@
                 "threshold": "ABSOLUTE_ACC",
                 "type": "ROTATION",
                 "trigger": {
-                    "transformation": 50
+                    "transformation": -10
                 }
             }
         ],
