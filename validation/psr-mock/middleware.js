@@ -7,6 +7,7 @@ module.exports = (req, _, next) => {
             req.url = '/multiple'
             break
         case 972.22461:
+        case 972.2246:
             req.url = '/sequence'
             break
     }
