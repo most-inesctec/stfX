@@ -1,0 +1,1 @@
+{"obtained_events": [{"events": [{"threshold": "ABSOLUTE_ACC", "type": "TRANSLATION", "trigger": {"transformation": [-200.00003, 40.000004]}}], "temporalRange": [0, 60]}], "M1": 0.25000000869506483, "M2": 0.5, "M2_diff": [{"temporalRange": [0, 60], "insertions": ["ROTATION", "UNIFORM_SCALE"]}]}
