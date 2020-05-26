@@ -15,7 +15,7 @@
                 "threshold": "DIRECTED_ACC",
                 "type": "ROTATION",
                 "trigger": {
-                    "transformation": -45
+                    "transformation": 45
                 }
             },
             {
