@@ -1,0 +1,14 @@
+{
+    "parameters": {
+        "translation": {
+            "directedAcc": 1077
+        },
+        "rotation": {
+            "directedAcc": 49.5
+        },
+        "scale": {
+            "directedAcc": 0.02
+        },
+        "immutability": 30
+    }
+}

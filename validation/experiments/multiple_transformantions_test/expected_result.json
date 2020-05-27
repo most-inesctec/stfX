@@ -5,7 +5,7 @@
                 "threshold": "ABSOLUTE_ACC",
                 "type": "TRANSLATION",
                 "trigger": {
-                    "transformation": 13.734
+                    "transformation": [12.284, -6.1418]
                 }
             }
         ],
@@ -20,11 +20,11 @@
                 "threshold": "ABSOLUTE_ACC",
                 "type": "TRANSLATION",
                 "trigger": {
-                    "transformation": 1.697
+                    "transformation": [1.518, -0.7591]
                 }
             },
             {
-                "threshold": "DIRECTED_ACC",
+                "threshold": "DIRECTED_ACC", 
                 "type": "ROTATION",
                 "trigger": {
                     "transformation": -10
@@ -42,7 +42,7 @@
                 "threshold": "ABSOLUTE_ACC",
                 "type": "TRANSLATION",
                 "trigger": {
-                    "transformation": 4.3496
+                    "transformation": [3.743, -1.98368]
                 }
             }
         ],
@@ -57,7 +57,7 @@
                 "threshold": "ABSOLUTE_ACC",
                 "type": "TRANSLATION",
                 "trigger": {
-                    "transformation": 1.069
+                    "transformation": [0.956, -0.4783]
                 }
             },
             {
@@ -79,7 +79,7 @@
                 "threshold": "ABSOLUTE_ACC",
                 "type": "TRANSLATION",
                 "trigger": {
-                    "transformation": 1.516
+                    "transformation": [1.352, -0.6759]
                 }
             }
         ],
@@ -108,7 +108,7 @@
                 "threshold": "ABSOLUTE_ACC",
                 "type": "TRANSLATION",
                 "trigger": {
-                    "transformation": 31.623
+                    "transformation": [-30, 10]
                 }
             },
             {
@@ -130,7 +130,7 @@
                 "threshold": "DIRECTED_ACC",
                 "type": "TRANSLATION",
                 "trigger": {
-                    "transformation": 5
+                    "transformation": [5, 0]
                 }
             },
             {
@@ -152,7 +152,7 @@
                 "threshold": "DIRECTED_ACC",
                 "type": "ROTATION",
                 "trigger": {
-                    "transformation": -6.47
+                    "transformation": 6.47
                 }
             }
         ],
@@ -167,7 +167,7 @@
                 "threshold": "DIRECTED_ACC",
                 "type": "ROTATION",
                 "trigger": {
-                    "transformation": -10.53
+                    "transformation": 10.53
                 }
             },
             {
@@ -189,7 +189,7 @@
                 "threshold": "DIRECTED_ACC",
                 "type": "ROTATION",
                 "trigger": {
-                    "transformation": -68
+                    "transformation": 68
                 }
             }
         ],
