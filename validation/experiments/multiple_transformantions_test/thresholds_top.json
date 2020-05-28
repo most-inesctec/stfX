@@ -1,8 +1,8 @@
 {
     "parameters": {
         "translation": {
-            "absoluteAcc": 1.5,
-            "noiseEpsilon": 0.1
+            "absoluteAcc": 0.1,
+            "noiseEpsilon": 0.001
         },
         "rotation": {
             "directedAcc": 1,
