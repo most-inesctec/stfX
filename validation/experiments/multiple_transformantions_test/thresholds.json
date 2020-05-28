@@ -1,17 +1,17 @@
 {
     "parameters": {
         "translation": {
-            "directedAcc": 1,
-            "noiseEpsilon": 0.05
+            "directedAcc": 0.1,
+            "noiseEpsilon": 0.001
         },
         "rotation": {
             "directedAcc": 1,
             "noiseEpsilon": 0.05
         },
         "scale": {
-            "directedAcc": 0.05,
-            "noiseEpsilon": 0.005
+            "directedAcc": 0.01,
+            "noiseEpsilon": 0.002
         },
-        "immutability": 10
+        "immutability": 5
     }
 }
