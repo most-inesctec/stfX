@@ -10,6 +10,9 @@ module.exports = (req, _, next) => {
         case 972.2246:
             req.url = '/sequence'
             break
+        case -7.387085:
+            req.url = '/complex'
+            break
     }
 
     req.originalUrl = req.url
