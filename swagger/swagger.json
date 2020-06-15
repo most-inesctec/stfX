@@ -245,12 +245,12 @@
         "properties" : {
           "timePeriod" : {
             "type" : "number",
-            "description" : "The number of seconds seprating each dataset snapshot.",
+            "description" : "The number of milliseconds seprating each dataset snapshot.",
             "example" : 5
           },
           "startTime" : {
             "type" : "number",
-            "description" : "The number of seconds, elapsed since 1 Jan 1970, when the dataset occurs.",
+            "description" : "The number of milliseconds, elapsed since 1 Jan 1970, when the dataset occurs.",
             "example" : 100
           },
           "name" : {
