@@ -1,4 +1,4 @@
-# ___stfX_: A SpatioTemporal Features eXtractor__
+# ___stfX_: SpatioTemporal Features eXtractor__
 
 Since this server was developed as a set of microservices, this microservices are added to this repository as sub-modules.
 
