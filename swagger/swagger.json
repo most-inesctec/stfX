@@ -331,7 +331,7 @@
           }
         }
       },
-      "State" : {
+      "Snapshot" : {
         "required" : [ "representation", "timestamp" ],
         "type" : "object",
         "properties" : {
@@ -391,7 +391,7 @@
           "phenomena" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/components/schemas/State"
+              "$ref" : "#/components/schemas/Snapshot"
             }
           }
         }
