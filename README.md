@@ -30,14 +30,14 @@ The current _stfX_ version supports the following functionalities:
 
 | __Folder__ | __Description__ |
 |:-|:-|
-| `/configs` | Contains necessary configurations for the deployment of the _stfX_ |
-| `/core` | [Core microservice](https://github.com/EdgarACarneiro/stfXCore) |
-| `/CPD-service` | [CPD microservice](https://github.com/EdgarACarneiro/CPD-service). The CPD is the used point set registration algorithm in this service |
-| `/docs` | Contains the associated documents, namely the corresponding __[thesis](docs/thesis.pdf)__ |
-| `/PR-GLS-service` | Attempt of developing a microservice employing non-rigid registration. Ended up using the [CPD microservice](https://github.com/EdgarACarneiro/CPD-service) |
-| `/swagger` | Contains the `json` file describing the [Swagger](https://app.swaggerhub.com/apis-docs/EdgarACarneiro/thesis/2.1.1) corresponding to the _stfX_ |
-| `/utils` | Contains some utility python scripts, such as the parser of `.wkt`to `.json` and extracting the `.json` dataset from an animation modelled as a set of `.obj` files |
-| `/validation` | Contains the resources, the results, and the code necessary to validate the _stfX_. See chapter 6 of the corresponding __[thesis](docs/thesis.pdf)__ for more information |
+| `/configs` | Contains necessary configurations for the deployment of the _stfX_. |
+| `/core` | [Core microservice](https://github.com/EdgarACarneiro/stfXCore). |
+| `/CPD-service` | [CPD microservice](https://github.com/EdgarACarneiro/CPD-service). The CPD is the used point set registration algorithm in this service. |
+| `/docs` | Contains the associated documents, namely the corresponding __[thesis](docs/thesis.pdf)__. |
+| `/PR-GLS-service` | Attempt of developing a microservice employing non-rigid registration. Ended up using the [CPD microservice](https://github.com/EdgarACarneiro/CPD-service). |
+| `/swagger` | Contains the `json` file describing the [Swagger](https://app.swaggerhub.com/apis-docs/EdgarACarneiro/thesis/2.1.1) corresponding to the _stfX_. |
+| `/utils` | Contains some utility python scripts, such as the parser of `.wkt`to `.json` and extracting the `.json` dataset from an animation modelled as a set of `.obj` files. |
+| `/validation` | Contains the resources, the results, and the code necessary to validate the _stfX_. See chapter 6 of the corresponding __[thesis](docs/thesis.pdf)__ for more information. |
 
 # Getting started
 
