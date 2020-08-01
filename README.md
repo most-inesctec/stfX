@@ -32,7 +32,7 @@ The current _stfX_ version supports the following functionalities:
 |:-|:-|
 | `/configs` | Contains necessary configurations for the deployment of the _stfX_. |
 | `/core` | [Core microservice](https://github.com/EdgarACarneiro/stfXCore). |
-| `/CPD-service` | [CPD microservice](https://github.com/EdgarACarneiro/CPD-service). The CPD is the used point set registration algorithm in this service. |
+| `/CPD-service` | [CPD microservice](https://github.com/EdgarACarneiro/CPD-service). The CPD is the used point set registration algorithm in this service. Represents the PSR service of the above figure. |
 | `/docs` | Contains the associated documents, namely the corresponding __[thesis](docs/thesis.pdf)__. |
 | `/PR-GLS-service` | Attempt of developing a microservice employing non-rigid registration. Ended up using the [CPD microservice](https://github.com/EdgarACarneiro/CPD-service). |
 | `/swagger` | Contains the `json` file describing the [Swagger](https://app.swaggerhub.com/apis-docs/EdgarACarneiro/thesis/2.1.1) corresponding to the _stfX_. |
