@@ -39,6 +39,98 @@ The current _stfX_ version supports the following functionalities:
 | `/utils` | Contains some utility python scripts, such as the parser of `.wkt`to `.json` and extracting the `.json` dataset from an animation modelled as a set of `.obj` files. |
 | `/validation` | Contains the resources, the results, and the code necessary to validate the _stfX_. See chapter 6 of the corresponding __[thesis](docs/thesis.pdf)__ for more information. |
 
+
+# Validation of _stfX_
+
+The purpose of the `/validation` subfolder is none other less than to validate the _stfX_, by containing all the necessary resources to run the experiments and recreate the results documented.
+
+1. The validation scripts assume the totality of the stfX environment is running locally, using `docker-compose`.
+2. Therefore, please do not forget to run `sh docker.sh` before proceeding with the validation.
+3. However, to run the experiments that depend on the mock PSR service, you must run the application locally and run the mock server available in folder `/validation/psr-mock`. After, run `sh experiments_with_mock.sh` to run the experiments that support mock data.
+
+
+<details>
+<summary><code>utils/</code></summary>
+  <br>
+  Contains Metrics M1 and M2:
+  <ul>
+    <li><strong>M1</strong>
+      <ul>
+        <li>metric that consists of comparing the ground truth final representation with the representation obtained by applying the transformations outputted by the <em>stfX</em>. The goal is to identify if the transformations recognised by the <em>stfX</em> result in equivalent representations to the ground truth.
+        </li>
+      </ul>
+    </li>
+    <li><strong>M2</strong>
+      <ul>
+        <li>metric that consists of analysing the similarity between the set of transformations outputted by the tool and the ground truth transformations. The goal is to identify how similar are both sets of transformations and, therefore, how effective is the devised solution.</li>
+      </ul>
+    </li>
+  </ul> 
+</details>
+
+<details>
+<summary><code>experiment_mock.sh</code></summary>
+  <br>
+  This script is in charge of running the mock microservice that runs the algorithm point set registration.
+</details>
+
+
+
+<details>
+  <summary><code>validate.py</code> & <code>validate_all.py</code></summary>
+<br>
+  <ul>
+    <li>
+      <code>validate.py</code> Script to validate a test-scenario the stfX tool.
+    </li>
+    <li>
+      <code>validate_all.py</code> Script to validate all the test-scenario, in the given directory, using the stfX tool.
+    </li>
+  </ul>
+</details>
+
+<details>
+  <summary><code>results/</code></summary>
+  <br>
+  Contains the results under the denomination <code><em><name_of_the_test></em>.json</code>. 
+  <br><br>
+  The json files have both the obtained results, the metric scores, and the differences between what was accomplish and what was expected for the M2 metric.
+  <br>
+  As for the files under the denomination <code><em><name_of_the_test></em>_m1.png</code>, they exhibit the representation of the <strong>convex hulls</strong> and the phenomena used in the M1 metric.
+</details>
+
+<details>
+  <summary>psr-mock</summary>
+  <br>
+  Contains the imperative code to run the mock microservice.
+</details>
+
+<details>
+  <summary>experiments</summary>
+  <br>
+  Encloses folders for each experiment. As for each experiment, it consists of:
+  <ul>
+    <li>
+      <code>dataset.json</code>: the dataset that characterizes the spatiotemporal phenomena.
+    </li>
+    <li>
+      <code>expected_result.json</code>: the expected result for the M2 metric (changes that effectively affect the phenomenon). 
+    </li>
+    <li>
+      <code><em>name</em>.blend</code>: blender file used to create the experience (phenomenon + geometric transformations applied).
+    </li>
+    <li>
+      <code>thresholds.json</code>: thresholds adopted for the detection of changes that affect the spatiotemporal phenomenon.
+      <ul>
+        <li>
+          Sometimes it happens to exist more than one file for <code>thresholds.json</code> inside an experiment. This occurs because some experiments made with the same dataset adopt different thresholds so that the impact of bad and good thresholds in the quality of the results can be appraised.
+        </li>
+      </ul>
+    </li>
+  </ul>
+</details>
+
+
 # Getting started
 
 To download stfX with the latest micro-services versions run:
