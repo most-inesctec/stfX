@@ -100,13 +100,13 @@ The purpose of the `/validation` subfolder is none other less than to validate t
 </details>
 
 <details>
-  <summary>psr-mock</summary>
+  <summary><code>psr-mock</code></summary>
   <br>
   Contains the imperative code to run the mock microservice.
 </details>
 
 <details>
-  <summary>experiments</summary>
+  <summary><code>experiments</code></summary>
   <br>
   Encloses folders for each experiment. As for each experiment, it consists of:
   <ul>
