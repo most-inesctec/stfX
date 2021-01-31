@@ -44,10 +44,11 @@ The current _stfX_ version supports the following functionalities:
 
 The purpose of the `/validation` subfolder is none other less than to validate the _stfX_, by containing all the necessary resources to run the experiments and recreate the results documented.
 
+Some important nuances:
 1. The validation scripts assume the totality of the stfX environment is running locally, using `docker-compose`.
-2. Therefore, please do not forget to run `sh docker.sh` before proceeding with the validation.
-3. However, to run the experiments that depend on the mock PSR service, you must run the application locally and run the mock server available in folder `/validation/psr-mock`. After, run `sh experiments_with_mock.sh` to run the experiments that support mock data.
-
+2. Therefore, please do not forget to run `docker-compose up`, on stfX main folder, before proceeding with the validation.
+3. However, to run the experiments that depend on the mock PSR service, you must run the `stfXCore` microservice in a standalone manner (e.g. using _IntelliJ_), and run the mock server available in folder `/validation/psr-mock` (you must not have the original `cpd-service` running, as both server - the mock and the original - run in the same port on localhost). Afterwards, run `sh experiments_with_mock.sh` to run the experiments that support mock data.
+4. Before running the validations scripts, remember you have to install the requirements, available on the `/validation`folder, using `pip install -r requirements.txt`. It is suggested to first create a [virtual environment](https://docs.python.org/3/library/venv.html) and activate it.
 
 <details>
 <summary><code>utils/</code></summary>
@@ -81,10 +82,38 @@ The purpose of the `/validation` subfolder is none other less than to validate t
 <br>
   <ul>
     <li>
-      <code>validate.py</code> Script to validate a test-scenario the stfX tool.
+      <code>validate.py</code> Script to validate a test-scenario the stfX tool. Usage:
+      <code>
+
+      usage: validate.py [-h] -d DIR [-e ENDPOINT]
+
+      Script to validate a test-scenario the stfX tool.
+
+      optional arguments:
+        -h, --help            show this help message and exit
+        -d DIR, --dir DIR     The directory containing the resources necessary for this test. The output is also written to
+                              this directory, in file result.txt
+        -e ENDPOINT, --endpoint ENDPOINT
+                              The endpoint running stfX. Default is http://localhost:0080/stfx
+  </code>
     </li>
     <li>
-      <code>validate_all.py</code> Script to validate all the test-scenario, in the given directory, using the stfX tool.
+      <code>validate_all.py</code> Script to validate all the test-scenario, in the given directory, using the stfX tool. Usage:
+      <code>
+
+      usage: validate_all.py [-h] -d DIR [-o OUT_DIR] [-e ENDPOINT]
+
+      Script to validate all the test-scenario, in the given directory, using the stfX tool.
+
+      optional arguments:
+        -h, --help            show this help message and exit
+        -d DIR, --dir DIR     The directory containing the test-scenarios.
+        -o OUT_DIR, --out_dir OUT_DIR
+                              The directory where the output of the test-scenario will be written to. If the directory does
+                              not exist, it is created. Defaults to './results'
+        -e ENDPOINT, --endpoint ENDPOINT
+                              The endpoint running stfX. Default is http://localhost:0080/stfx
+  </code>
     </li>
   </ul>
 </details>
@@ -130,7 +159,6 @@ The purpose of the `/validation` subfolder is none other less than to validate t
   </ul>
 </details>
 
-
 # Getting started
 
 To download stfX with the latest micro-services versions run:
@@ -157,4 +185,16 @@ git submodule add <submudole link>
 To run the application, using Docker (one must have it installed), run:
 ```shell
 docker-compose up
+```
+
+__Important notes to run the application__:
+* if you intend to use the `swagger UI`, in the browser, you must change the following lines https://github.com/EdgarACarneiro/stfX/blob/a9fe68d30624d666b440f412a8ead0c5037d2c20/swagger/swagger.json#L13 since these are set for the deployment purposes. Hence, if you are running the `docker-compose up` command locally,
+change this lines to:
+```json
+"url" : "http://localhost:0080/stfx",
+```
+
+* By default, the application entrypoint is port `80`, hence you must not have anything running on this port or you must change it in lines https://github.com/EdgarACarneiro/stfX/blob/a9fe68d30624d666b440f412a8ead0c5037d2c20/docker-compose.yml#L9 , for e.g. (serving application on port `82`):
+```yaml
+- 82:80
 ```
