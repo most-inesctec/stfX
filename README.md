@@ -200,3 +200,8 @@ change this lines to:
 ```yaml
 - 82:80
 ```
+
+# Acknowledgments
+
+This work is financed by the ERDF – European Regional Development Fund through the Operational Programme for Competitiveness and Internationalisation - COMPETE 2020
+Programme and by National Funds through the Portuguese funding agency, FCT – Fundac¸ ˜ao para a Ciˆencia e a Tecnologia within project PTDC/CCI-INF/32636/2017 (POCI-01-0145-FEDER-032636).
